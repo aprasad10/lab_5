@@ -2,23 +2,23 @@ package com.example.lab_5;
 import java.util.Calendar;
 import java.util.Random;
 
-public class BankAccount {
-    static int accountNumber;
-    private int accountBalance;
+public class BankAccount { ;
+    static int accountNumber = 0;
+    private double accountBalance;
     private StringBuilder statement;
 
     public BankAccount() {
         this.accountBalance = 0;
         this.statement = new StringBuilder();
-        this.accountNumber = new Random().nextInt(101);
+        this.accountNumber++;
     }
 
-    public BankAccount(int i) {
+    public BankAccount(double i) {
         this.accountBalance = i;
         this.statement = new StringBuilder();
     }
 
-    public void deposit(int amount) throws Exception {
+    public void deposit(double amount) throws Exception {
         if (amount < 0)
             throw new Exception("Amount cannot be negative");
         this.accountBalance += amount;
@@ -26,7 +26,7 @@ public class BankAccount {
                 Calendar.getInstance().getTime() + "\n");
     }
 
-    public void withdraw(int amount) throws Exception {
+    public void withdraw(double amount) throws Exception {
         if (amount < 0)
             throw new Exception("Amount cannot be negative");
         if (amount > this.accountBalance)
@@ -36,7 +36,7 @@ public class BankAccount {
                 Calendar.getInstance().getTime() + "\n");
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return this.accountBalance;
     }
 
