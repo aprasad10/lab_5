@@ -8,6 +8,8 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/*
+.idea
 *.iws
 *.iml
 *.ipr
@@ -20,6 +22,10 @@ target/
 .settings
 .springBeans
 .sts4-cache
+
+### Maven ###
+.mvn
+.mvn/*
 
 ### NetBeans ###
 /nbproject/private/
