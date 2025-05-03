@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 /**
  * Bank Account Controller
- * @author Ashley Prasad
+ * @author Ashley Prasad (BankAccountController)
  * @since 05/02/2025
  */
 public class BankAccountController {
@@ -27,6 +27,12 @@ public class BankAccountController {
     @FXML
     private Label print;
 
+    /**
+     * CreateAccButtonClick() creates a new account every time the button is clicked on, and the new account
+     * is then added to a list of accounts called accounts. A variable holds the current account called selectedAcc.
+     * Account label is updated to be the accounts number, balance is intitialized to 0.
+     * The ComboBox is also a list that allows the reader to select from and switch across accounts, and is updated every click.
+     */
     @FXML
     protected void onCreateAccButtonClick() {
         BankAccount newAcc = new BankAccount();
@@ -38,6 +44,11 @@ public class BankAccountController {
         accountSelector.getItems().add(newAcc.getAccountNumber());
         accountSelector.setValue(newAcc.getAccountNumber());
     }
+
+    /**
+     * onSelectAccountButtonClick() allows user to click on the ComboBox button and select an account from the updated
+     * list--when doing so, the balance is then changed to what the selected accounts current balance is.
+     */
     @FXML
     protected void onSelectAccountButtonClick() {
         int accountNumber = accountSelector.getValue();  // Get the selected account number
@@ -48,6 +59,13 @@ public class BankAccountController {
             }
         }
     }
+
+    /**
+     * onDepositButtonClick() deposits an amount into the account balance, balance label is then updated
+     * combining the current balance with the deposited amount.
+     * Try and catch are also implemented to catch any errors where deposit is pressed before account is created
+     * and where there is no amount given to be deposited.
+     */
     @FXML
     protected void onDepositButtonClick() {
         try {
@@ -73,6 +91,13 @@ public class BankAccountController {
             nada.showAndWait();
         }
     }
+
+    /**
+     * onWithdrawButtonClick() withdraws an amount from the account balance, balance label is then updated
+     * subtracting the withdrawn amount from the current balance.
+     * Try and catch are also implemented to catch any errors where withdraw is pressed before account is created
+     * and where there is no amount given to be withdrawn.
+     */
     @FXML
     protected void onWithdrawButtonClick() {
         try {
@@ -98,6 +123,12 @@ public class BankAccountController {
             nada.showAndWait();
         }
     }
+
+    /**
+     * onStatementButtonClick() returns the transaction history for deposits/withdraws with printed date.
+     * Try and catch is implemented to give an alert in case the button is clicked on before the account is
+     * created.
+     */
     @FXML
     protected void onStatementButtonClick() {
         try {
