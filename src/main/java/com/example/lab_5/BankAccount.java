@@ -1,16 +1,20 @@
 package com.example.lab_5;
 import java.util.Calendar;
-import java.util.Random;
 
 public class BankAccount { ;
-    static int accountNumber = 0;
+    static int nextNumber = 1;
+    private int accountNumber;
     private double accountBalance;
     private StringBuilder statement;
 
     public BankAccount() {
         this.accountBalance = 0;
         this.statement = new StringBuilder();
-        this.accountNumber++;
+        this.accountNumber = nextNumber++;
+    }
+
+    public int getAccountNumber() {
+        return this.accountNumber;
     }
 
     public BankAccount(double i) {

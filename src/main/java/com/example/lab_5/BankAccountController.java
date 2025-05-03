@@ -1,15 +1,21 @@
 package com.example.lab_5;
 
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 
 public class BankAccountController {
     @FXML
-    private Label account;
+    ArrayList<BankAccount> accounts = new ArrayList<>();
     @FXML
-    BankAccount myAcc;
+    ComboBox<Integer> accountSelector;
+    @FXML
+    BankAccount selectedAcc;
+    @FXML
+    private Label account;
     @FXML
     private TextField amount;
     @FXML
@@ -19,9 +25,24 @@ public class BankAccountController {
 
     @FXML
     protected void onCreateAccButtonClick() {
-        myAcc = new BankAccount();
-        account.setText(String.valueOf(BankAccount.accountNumber));
+        BankAccount newAcc = new BankAccount();
+        accounts.add(newAcc);
+        selectedAcc = newAcc;
+        account.setText(String.valueOf(selectedAcc.getAccountNumber()));
         balance.setText("Balance: " + 0.0);
+
+        accountSelector.getItems().add(newAcc.getAccountNumber());
+        accountSelector.setValue(newAcc.getAccountNumber());
+    }
+    @FXML
+    protected void onSelectAccountButtonClick() {
+        int accountNumber = accountSelector.getValue();  // Get the selected account number
+        for (BankAccount account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                selectedAcc = account;
+                balance.setText(String.valueOf("Balance: " + selectedAcc.getBalance()));
+            }
+        }
     }
     @FXML
     protected void onDepositButtonClick() {
@@ -31,8 +52,8 @@ public class BankAccountController {
                 throw new NumberFormatException("Amount field is empty.");
             }
             Double amt = Double.parseDouble(amount.getText());
-            myAcc.deposit(amt);
-            balance.setText("Balance: " + String.format("%.2f", myAcc.getBalance()));
+            selectedAcc.deposit(amt);
+            balance.setText("Balance: " + String.format("%.2f", selectedAcc.getBalance()));
         }
         catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -56,8 +77,8 @@ public class BankAccountController {
                 throw new NumberFormatException("Amount field is empty.");
             }
         Double amt = Double.parseDouble(amount.getText());
-        myAcc.withdraw(amt);
-        balance.setText("Balance: " + String.format("%.2f", myAcc.getBalance()));
+        selectedAcc.withdraw(amt);
+        balance.setText("Balance: " + String.format("%.2f", selectedAcc.getBalance()));
         }
         catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,7 +97,7 @@ public class BankAccountController {
     @FXML
     protected void onStatementButtonClick() {
         try {
-            print.setText(myAcc.getStatement());
+            print.setText(selectedAcc.getStatement());
         }
         catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
