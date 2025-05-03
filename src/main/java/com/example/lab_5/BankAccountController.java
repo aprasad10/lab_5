@@ -25,24 +25,58 @@ public class BankAccountController {
     }
     @FXML
     protected void onDepositButtonClick() {
-        Double amt = Double.parseDouble(amount.getText());
         try {
+            String input = amount.getText();
+            if (input == null || input.trim().isEmpty()) {
+                throw new NumberFormatException("Amount field is empty.");
+            }
+            Double amt = Double.parseDouble(amount.getText());
             myAcc.deposit(amt);
-            balance.setText(String.format("Balance: " + String.valueOf(myAcc.getBalance())));
+            balance.setText("Balance: " + String.format("%.2f", myAcc.getBalance()));
         }
-        catch(Exception e) {
+        catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid number for amount.");
             alert.showAndWait();
+        }
+        catch(Exception ex) {
+            Alert nada = new Alert(Alert.AlertType.ERROR);
+            nada.setTitle("Error");
+            nada.setContentText(ex.getMessage());
+            nada.showAndWait();
         }
     }
     @FXML
     protected void onWithdrawButtonClick() {
-        Double amt = Double.parseDouble(amount.getText());
         try {
-            myAcc.withdraw(amt);
-            balance.setText(String.format("Balance: " + String.valueOf(myAcc.getBalance())));
+            String input = amount.getText();
+            if (input == null || input.trim().isEmpty()) {
+                throw new NumberFormatException("Amount field is empty.");
+            }
+        Double amt = Double.parseDouble(amount.getText());
+        myAcc.withdraw(amt);
+        balance.setText("Balance: " + String.format("%.2f", myAcc.getBalance()));
+        }
+        catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid number for amount.");
+            alert.showAndWait();
+        }
+        catch(Exception ex) {
+            Alert nada = new Alert(Alert.AlertType.ERROR);
+            nada.setTitle("Error");
+            nada.setContentText(ex.getMessage());
+            nada.showAndWait();
+        }
+    }
+    @FXML
+    protected void onStatementButtonClick() {
+        try {
+            print.setText(myAcc.getStatement());
         }
         catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -50,9 +84,5 @@ public class BankAccountController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
-    }
-    @FXML
-    protected void onStatementButtonClick() {
-        print.setText(myAcc.getStatement());
     }
 }
