@@ -1,6 +1,10 @@
 package com.example.lab_5;
 import java.util.Calendar;
-
+/**
+ * Bank Account Class Partner Lab 5
+ * @author Aagna Modi
+ * @since 05/02/2025
+ */
 public class BankAccount { ;
     static int nextNumber = 1;
     private int accountNumber;

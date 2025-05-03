@@ -6,7 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-
+/**
+ * Bank Account Controller
+ * @author Ashley Prasad
+ * @since 05/02/2025
+ */
 public class BankAccountController {
     @FXML
     ArrayList<BankAccount> accounts = new ArrayList<>();
